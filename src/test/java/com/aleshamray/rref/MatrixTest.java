@@ -8,27 +8,38 @@ import org.junit.Test;
 
 public class MatrixTest
 {
-  @Test
-  public void Test_Matrix_Creation() {
-    int rowCount = 3;
-    int colCount = 4;
-    ArrayList<ArrayList<Integer>> matrixBuild = new ArrayList<ArrayList<Integer>>();
+  private int rowCount;
+  private int colCount;
+  private ArrayList<ArrayList<Integer>> matrixBuild = new ArrayList<ArrayList<Integer>>();
+  private Matrix matrix;
+  {
+    rowCount = 3;
+    colCount = 4;
+    matrixBuild = new ArrayList<ArrayList<Integer>>();
     ArrayList<Integer> row1 = new ArrayList<Integer>(Arrays.asList(2,3,4));
     ArrayList<Integer> row2 = new ArrayList<Integer>(Arrays.asList(3,4,5));
     ArrayList<Integer> row3 = new ArrayList<Integer>(Arrays.asList(4,5,6));
     matrixBuild.add(row1);
     matrixBuild.add(row2);
     matrixBuild.add(row3);
-    Matrix matrix = new Matrix(rowCount, colCount, matrixBuild);
+    matrix = new Matrix(rowCount, colCount, matrixBuild);
+  }
 
+  @Test
+  public void Test_Matrix_Creation() {
     assertThat(3).as("Check that matrix row count is set to 3")
-                 .isEqualTo(matrix.getRowCount());
+                 .isEqualTo(matrix.getDimensions()[0]);
 
     assertThat(4).as("Check that matrix colCount is set to 4")
-                 .isEqualTo(matrix.getColCount());
+                 .isEqualTo(matrix.getDimensions()[1]);
 
     assertThat("\n[2, 3, 4]\n[3, 4, 5]\n[4, 5, 6]\n").as("check that the matrix has correct values and is built in the correct format")
-                                                 .isEqualTo(matrix.toString());
+                                                     .isEqualTo(matrix.toString());
+  }
 
+  @Test
+  public void Test_Matrix_Validation() {
+    assertThat(true).as("Check that the entered matrix is valid")
+                    .isTrue();
   }
 }

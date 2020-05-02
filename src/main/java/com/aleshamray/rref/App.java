@@ -58,7 +58,11 @@ public class App {
                                                         .map(x -> Integer.parseInt(x))
                                                         .collect(Collectors.toList())));
           }
-          matrix = new Matrix(rowCount, colCount, matrixBuild);
+          if(matrix.validateMatrix(rowCount, colCount, matrixBuild)) {
+            matrix.updateMatrix(rowCount, colCount, matrixBuild);
+          } else {
+            System.out.println("\nThe values don't match the entered dimensions. Please try again!\n\n");
+          }
         } catch (ArrayIndexOutOfBoundsException a) {
             System.out.println("\nIncorrect format, try again!\n");
             break;
@@ -89,8 +93,13 @@ public class App {
                                                         .stream()
                                                         .map(x -> Integer.parseInt(x))
                                                         .collect(Collectors.toList())));
-                                                      }
+          }
+          
+          if(matrix.validateMatrix(rowCount, colCount, matrixBuild)) {
             matrix.updateMatrix(rowCount, colCount, matrixBuild);
+          } else {
+            System.out.println("\nThe values don't match the entered dimensions. Please try again!\n\n");
+          }
         } catch (ArrayIndexOutOfBoundsException a) {
           System.out.println("\nIncorrect format, try again!\n");
           break;

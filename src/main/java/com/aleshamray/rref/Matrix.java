@@ -31,20 +31,26 @@ public class Matrix {
 
   }
 
-  public void setRowCount(int rowCount) { this.rowCount = rowCount; }
-
-  public void setColCount(int colCount) { this.colCount = colCount; }
+  public void setDimensions(int rowCount, int colCount) {
+    this.rowCount = rowCount;
+    this.colCount = colCount;
+  }
 
   public void setMatrix (ArrayList<ArrayList<Integer>> matrix) { this.matrix = matrix; }
 
-  public int getRowCount() { return this.rowCount; }
-
-  public int getColCount() { return this.colCount; }
+  public int[] getDimensions() { return new int[]{rowCount, colCount}; }
 
   public boolean updateMatrix(int rowCount, int colCount, ArrayList<ArrayList<Integer>> matrix) {
-    setRowCount(rowCount);
-    setColCount(colCount);
+    setDimensions(rowCount, colCount);
     setMatrix(matrix);
+    return true;
+  }
+
+  public boolean validateMatrix(int rowCount, int colCount, ArrayList<ArrayList<Integer>> matrix) {
+    if(matrix.size() != rowCount ) return false; 
+    for(ArrayList<Integer> list : matrix) {
+      if(list.size() != colCount) return false;
+    }
     return true;
   }
 
