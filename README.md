@@ -1,5 +1,7 @@
 # Reduced Row Echelon Form Calculator (Java)
 
+[![Build Status](https://travis-ci.com/alesharay/RREF.svg?branch=master)](https://travis-ci.com/alesharay/RREF)
+
 RREF calculator is a terminal based program that allows you input the dimensions and values 
 of an *n x m* matrix, and recieve the **reduced row echelon form** of that matrix.
 
