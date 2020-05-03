@@ -10,21 +10,11 @@ public class Matrix {
   private int colCount;
 
   public Matrix() {
-    matrix = new ArrayList< ArrayList<Integer> >();
-    rowCount = 3;
-    colCount = 3;
-    while(rowCount-- > 0) {
-      ArrayList<Integer> row = new ArrayList<Integer>();
-      int tmpColCount = colCount;
-      while(tmpColCount-- > 0) {
-        row.add(0);
-      }
-      matrix.add(row);
-    }
+    this.matrix = null;
   }
   
   public Matrix(int rowCount, int colCount, ArrayList<ArrayList<Integer>> matrix) {
-    updateMatrix(rowCount, colCount, matrix);
+   if(!updateMatrix(rowCount, colCount, matrix)) this.matrix = null;
   }
 
   public Matrix(int rowCount, int colCount, List<Integer> rows, List<Integer> cols) {
@@ -41,9 +31,12 @@ public class Matrix {
   public int[] getDimensions() { return new int[]{rowCount, colCount}; }
 
   public boolean updateMatrix(int rowCount, int colCount, ArrayList<ArrayList<Integer>> matrix) {
-    setDimensions(rowCount, colCount);
-    setMatrix(matrix);
-    return true;
+    if(validateMatrix(rowCount, colCount, matrix)) {
+      setDimensions(rowCount, colCount);
+      setMatrix(matrix);
+      return true;
+    }
+    return false;
   }
 
   public boolean validateMatrix(int rowCount, int colCount, ArrayList<ArrayList<Integer>> matrix) {

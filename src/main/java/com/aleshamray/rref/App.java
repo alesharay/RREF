@@ -54,13 +54,12 @@ public class App {
           int tmpRowCount = rowCount;
           while(tmpRowCount-- > 0) {
              matrixBuild.add(new ArrayList<Integer>(Arrays.asList(reader.readLine().trim().split(" "))
-                                                        .stream()
-                                                        .map(x -> Integer.parseInt(x))
-                                                        .collect(Collectors.toList())));
+                        .stream()
+                        .map(x -> Integer.parseInt(x))
+                        .collect(Collectors.toList())));
           }
-          if(matrix.validateMatrix(rowCount, colCount, matrixBuild)) {
-            matrix.updateMatrix(rowCount, colCount, matrixBuild);
-          } else {
+          matrix = new Matrix(rowCount, colCount, matrixBuild);
+          if(matrix == null) {
             System.out.println("\nThe values don't match the entered dimensions. Please try again!\n\n");
           }
         } catch (ArrayIndexOutOfBoundsException a) {
@@ -95,9 +94,7 @@ public class App {
                                                         .collect(Collectors.toList())));
           }
           
-          if(matrix.validateMatrix(rowCount, colCount, matrixBuild)) {
-            matrix.updateMatrix(rowCount, colCount, matrixBuild);
-          } else {
+          if(!matrix.updateMatrix(rowCount, colCount, matrixBuild)) {         
             System.out.println("\nThe values don't match the entered dimensions. Please try again!\n\n");
           }
         } catch (ArrayIndexOutOfBoundsException a) {
