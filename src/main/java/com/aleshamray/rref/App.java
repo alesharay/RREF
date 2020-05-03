@@ -20,7 +20,6 @@ public class App {
         "Display the matrix (d)\n" +
         "Interchange (swap) two rows (i)\n" + 
         "Scale (multiply) a row by a given value (s)\n" +
-        "Update current matrix (u)\n" +
         "Quit (q)\n\n" + 
         "OPTION: "
       );
@@ -36,6 +35,7 @@ public class App {
     switch (option.toLowerCase().trim()) {
       // if the option is to 'create a new matrix'
       case "c":
+        matrixBuild = new ArrayList< ArrayList<Integer> >();
         System.out.print("number of rows (n) and columns (m)\n"+
                            "[format: n m ... ex. 3 4]: ");
         
@@ -60,22 +60,22 @@ public class App {
                         .map(x -> Integer.parseInt(x))
                         .collect(Collectors.toList())));
           }
-          
+          System.out.println();
           matrix = new Matrix(rowCount, colCount, matrixBuild);
           if(matrix.getDimensions()[0] == 0 || matrix.getDimensions()[1] == 0) {
-            System.out.println("\nYou entered an invalid matrix. Try again!\n");
+            System.out.println("You entered an invalid matrix. Try again!\nA 3x3 matrix filled with 0s will be created by default.\n");
           }
         } catch(ArrayIndexOutOfBoundsException a) {
-            System.out.println("\nIncorrect format, try again!\n\n");
+            System.out.println("Incorrect format, try again!\nA 3x3 matrix filled with 0s will be created by default.\n\n");
         } catch(NullPointerException n) {
-          System.out.println("\nThe values don't match the entered dimensions. Please try again!\n\n");
+          System.out.println("The values don't match the entered dimensions. Please try again!\nA 3x3 matrix filled with 0s will be created by default.\n\n");
         } catch(NumberFormatException f) {
-          System.out.println("\nYou didn't enter enough numbers. Try again!\n\n");
+          System.out.println("You didn't enter enough numbers. Try again!\nA 3x3 matrix filled with 0s will be created by default.\n\n");
         }
         break;
       // if the option is to display this matrix
       case "d":
-        System.out.println(matrix.toString());
+        System.out.println("\n"+matrix.toString()+"\n");
         break;
       // if the option is to interchange two rows in the matrix
       case "i":
@@ -99,10 +99,6 @@ public class App {
         break;
       // if the option is to scale a row by a given factor
       case "s":
-        
-
-
-      
         System.out.print("\nRow you would like to scale and by what factor?\n"+
         "[format: n m ... ex. 1 -2]: ");
         try { 
@@ -119,46 +115,7 @@ public class App {
           System.out.println("\nIncorrect format, try again!\n");
           break;
         }
-      
 
-
-
-
-
-        
-        break;
-      // if the option is to update the matrix with different dimensions and different values
-      case "u":
-        System.out.print("\nnumber of rows (n) and columns (m)\n"+
-                           "[format: n m ... ex. 3 4]: ");
-        try { 
-          nums = reader.readLine().trim().split(" ");
-          rowCount = Integer.valueOf(nums[0]);
-          colCount = Integer.valueOf(nums[1]);
-
-          System.out.println("\nEnter row values\n" + 
-          "[example for a 3x3 matrix]\n" +
-          "1 2 3\n" +
-          "4 5 6\n" +
-          "7 8 9\n\n" +
-          "values: ");
-          
-          int tmpRowCount = rowCount;
-          matrixBuild.clear();
-          while(tmpRowCount-- > 0) {
-             matrixBuild.add(new ArrayList<Integer>(Arrays.asList(reader.readLine().trim().split(" "))
-                                                        .stream()
-                                                        .map(x -> Integer.parseInt(x))
-                                                        .collect(Collectors.toList())));
-          }
-
-          if(!matrix.updateMatrix(rowCount, colCount, matrixBuild)) {         
-            System.out.println("\nThe values don't match the entered dimensions. Please try again!\n");
-          }
-        } catch (ArrayIndexOutOfBoundsException a) {
-          System.out.println("\nIncorrect format, try again!\n");
-          break;
-        }
         break;
       // if the option is to quit
       case "q":

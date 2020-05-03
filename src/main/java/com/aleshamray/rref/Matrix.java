@@ -1,6 +1,5 @@
 package com.aleshamray.rref;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.*;
 
@@ -9,7 +8,7 @@ public class Matrix {
   private int rowCount;
   private int colCount;
 
-  public Matrix() {
+  private void defaultMatrixBuilder() {
     this.matrix = new ArrayList< ArrayList<Integer> >();
     this.rowCount = 0;
     this.colCount = 0;
@@ -23,11 +22,23 @@ public class Matrix {
       matrix.add(row);
     }
   }
+
+  private boolean updateMatrix(int rowCount, int colCount, ArrayList<ArrayList<Integer>> matrix) {
+    if(validateMatrix(rowCount, colCount, matrix)) {
+      setDimensions(rowCount, colCount);
+      setMatrix(matrix);
+      return true;
+    }
+    return false;
+  }
+
+  public Matrix() {
+    defaultMatrixBuilder();
+  }
   
   public Matrix(int rowCount, int colCount, ArrayList<ArrayList<Integer>> matrix) {
-    this();
-    if(!updateMatrix(rowCount, colCount, matrix)){
-      // default matrix is already built
+    if(!updateMatrix(rowCount, colCount, matrix)) {
+      defaultMatrixBuilder();
     }
   }
 
@@ -36,18 +47,11 @@ public class Matrix {
     this.colCount = colCount;
   }
 
-  public void setMatrix (ArrayList<ArrayList<Integer>> matrix) { this.matrix = matrix; }
+  public void setMatrix (ArrayList<ArrayList<Integer>> matrix) { 
+    this.matrix = matrix; 
+  }
 
   public int[] getDimensions() { return new int[]{rowCount, colCount}; }
-
-  public boolean updateMatrix(int rowCount, int colCount, ArrayList<ArrayList<Integer>> matrix) {
-    if(validateMatrix(rowCount, colCount, matrix)) {
-      setDimensions(rowCount, colCount);
-      setMatrix(matrix);
-      return true;
-    }
-    return false;
-  }
 
   public boolean validateMatrix(int rowCount, int colCount, ArrayList<ArrayList<Integer>> matrix) {
     if(matrix.size() != rowCount ) return false; 
