@@ -10,15 +10,25 @@ public class Matrix {
   private int colCount;
 
   public Matrix() {
-    this.matrix = null;
+    this.matrix = new ArrayList< ArrayList<Integer> >();
+    this.rowCount = 0;
+    this.colCount = 0;
+    int tmpRowCount = 3;
+    while(tmpRowCount-- > 0) {
+      ArrayList<Integer> row = new ArrayList<Integer>();
+      int tmpColCount = 3;
+      while(tmpColCount-- > 0) {
+        row.add(0);
+      }
+      matrix.add(row);
+    }
   }
   
   public Matrix(int rowCount, int colCount, ArrayList<ArrayList<Integer>> matrix) {
-   if(!updateMatrix(rowCount, colCount, matrix)) this.matrix = null;
-  }
-
-  public Matrix(int rowCount, int colCount, List<Integer> rows, List<Integer> cols) {
-
+    this();
+    if(!updateMatrix(rowCount, colCount, matrix)){
+      // default matrix is already built
+    }
   }
 
   public void setDimensions(int rowCount, int colCount) {
@@ -48,7 +58,7 @@ public class Matrix {
   }
 
   public boolean interchange(int row1, int row2) {
-    if(validateMatrix(this.rowCount, this.colCount, this.matrix)){
+    if(validateMatrix(this.rowCount, this.colCount, this.matrix)) {
       ArrayList<Integer> originalRow = matrix.get(--row1);
       ArrayList<Integer> swapRow = matrix.get(--row2);
       matrix.set(row1, swapRow);
@@ -58,15 +68,29 @@ public class Matrix {
     return false;
   }
 
+  public boolean scale(int row, int scaleFactor) {
+    if(validateMatrix(rowCount, colCount, matrix)) {
+      if((row < 1) || (row > rowCount)) return false;
+      ArrayList<Integer> rowToScale = matrix.get(--row);
+      matrix.set(row, new ArrayList<Integer>(rowToScale.stream()
+                                                       .map(x -> x *= scaleFactor)
+                                                       .collect(Collectors.toList())
+                                            )
+                );
+      return true;
+    }
+    return false;
+  }
+
   @Override
   public String toString() {
     if(matrix == null) return null;
 
-    String matrixString = "\n";
+    String matrixString = "";
     for(ArrayList<Integer> list : matrix) {
       matrixString += String.valueOf(list) + "\n";
     }
 
-    return matrixString; 
+    return matrixString.trim(); 
   }
 }
