@@ -41,4 +41,10 @@ public class MatrixTest
     assertThat(matrix.validateMatrix(rowCount, colCount, matrixBuild)).as("Check that the entered matrix is valid")
                     .isTrue();
   }
+
+  @Test
+  public void Test_Row_Interchange_Operation() {
+    assertThat(matrix.interchange(1, 3)).as("Should interchange rows 1 and 3)")
+                    .isTrue();
+  }
 }

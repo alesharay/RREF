@@ -18,7 +18,8 @@ public class App {
     while (true) {
       System.out.println(
         "Create a new matrix (c)\n" + 
-        "Update current matrix (u)\n" + 
+        "Update current matrix (u)\n" +
+        "Interchange (swap) two rows (i)\n" + 
         "Display the matrix (d)\n" +
         "Quit (q)\n\n" + 
         "OPTION: "
@@ -63,15 +64,34 @@ public class App {
             System.out.println("\nThe values don't match the entered dimensions. Please try again!\n\n");
           }
         } catch (ArrayIndexOutOfBoundsException a) {
-            System.out.println("\nIncorrect format, try again!\n");
+            System.out.println("\nIncorrect format, try again!\n\n");
             break;
+        }
+        break;
+      case "i":
+        System.out.print("\nWhich rows to swap\n"+
+        "[format (count starts at 1): n m ... ex. 3 4]: ");
+
+        int row1, row2;
+        try {
+          nums = reader.readLine().trim().split(" ");
+          row1 = Integer.valueOf(nums[0]);
+          row2 = Integer.valueOf(nums[1]);
+
+          if(matrix.interchange(row1, row2)) {
+            System.out.println("\nSuccessful! Display to view swap.\n");
+          } else {
+            System.out.println("\nUnsuccessful, matrix is not valid. Try to rebuild!\n");
+          }
+        } catch (IndexOutOfBoundsException i) {
+          System.out.println("\nRow values are invalid! Try again\n");
         }
         break;
       case "d":
         System.out.println(matrix.toString());
         break;
       case "u":
-        System.out.print("number of rows (n) and columns (m)\n"+
+        System.out.print("\nnumber of rows (n) and columns (m)\n"+
                            "[format: n m ... ex. 3 4]: ");
         try { 
           nums = reader.readLine().trim().split(" ");
@@ -95,7 +115,7 @@ public class App {
           }
           
           if(!matrix.updateMatrix(rowCount, colCount, matrixBuild)) {         
-            System.out.println("\nThe values don't match the entered dimensions. Please try again!\n\n");
+            System.out.println("\nThe values don't match the entered dimensions. Please try again!\n");
           }
         } catch (ArrayIndexOutOfBoundsException a) {
           System.out.println("\nIncorrect format, try again!\n");
@@ -106,7 +126,7 @@ public class App {
         readyToQuit = true;
         break;
       default:
-        System.out.println("\nNot a valid option. Please try again!\n\n");
+        System.out.println("\nNot a valid option. Please try again!\n");
         break;
     }
   }

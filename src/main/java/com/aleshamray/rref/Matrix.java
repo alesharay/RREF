@@ -47,6 +47,17 @@ public class Matrix {
     return true;
   }
 
+  public boolean interchange(int row1, int row2) {
+    if(validateMatrix(this.rowCount, this.colCount, this.matrix)){
+      ArrayList<Integer> originalRow = matrix.get(--row1);
+      ArrayList<Integer> swapRow = matrix.get(--row2);
+      matrix.set(row1, swapRow);
+      matrix.set(row2, originalRow);
+      return true;
+    }
+    return false;
+  }
+
   @Override
   public String toString() {
     if(matrix == null) return null;
