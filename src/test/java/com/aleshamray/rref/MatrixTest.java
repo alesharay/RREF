@@ -26,14 +26,14 @@ public class MatrixTest
 
   @Test
   public void Test_Matrix_Creation() {
-    assertThat(3).as("Should confirm the matrix row count is set correctly.")
-                 .isEqualTo(matrix.getDimensions()[0]);
+    assertThat(matrix.getDimensions()[0]).as("Should confirm the matrix row count is set correctly.")
+                 .isEqualTo(3);
 
-    assertThat(4).as("Should confirm the matrix column count is set correctly.")
-                 .isEqualTo(matrix.getDimensions()[1]);
+    assertThat(matrix.getDimensions()[1]).as("Should confirm the matrix column count is set correctly.")
+                 .isEqualTo(4);
 
-    assertThat("[1, 2, 3, 4]\n[2, 3, 4, 5]\n[3, 4, 5, 6]").as("Should confirm the matrix format is correct.")
-                                                     .isEqualTo(matrix.toString());
+    assertThat(matrix.toString()).as("Should confirm the matrix format is correct.")
+                                                     .isEqualTo("[1, 2, 3, 4]\n[2, 3, 4, 5]\n[3, 4, 5, 6]");
   }
 
   @Test
@@ -52,5 +52,23 @@ public class MatrixTest
   public void Test_Row_Scaling_Operation() {
     assertThat(matrix.scale(1, -2)).as("Should scale row 1 by -2.")
                                    .isTrue();
+  }
+
+  @Test
+  public void Test_Row_Replace_Operation() {
+    assertThat(matrix.replace(1, 2, -2)).as("Should replace row 1 with the sum of itself and row 2 scaled by -2")
+                                        .isTrue();
+
+    matrixBuild = new ArrayList<ArrayList<Integer>>(Arrays.asList(
+      new ArrayList<Integer>(Arrays.asList(1,1,1)),
+      new ArrayList<Integer>(Arrays.asList(2,2,2)),
+      new ArrayList<Integer>(Arrays.asList(3,3,3))
+      )
+    );
+
+    matrix = new Matrix(3, 3, matrixBuild);
+    matrix.replace(2, 1, -2);
+    assertThat(matrix.toString()).as("Should replace row 2 with -2*row1 resulting in row 2 being all 0s")
+                                                 .isEqualTo("[1, 1, 1]\n[0, 0, 0]\n[3, 3, 3]");
   }
 }

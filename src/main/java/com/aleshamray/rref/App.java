@@ -47,6 +47,11 @@ public class App {
           rowCount = Integer.valueOf(nums[0]);
           colCount = Integer.valueOf(nums[1]);
           
+          if(rowCount == 0) {
+            System.out.println();
+            throw new ArrayIndexOutOfBoundsException();
+          }
+
           System.out.println("\nEnter row values\n" + 
           "[example for a 3x3 matrix]\n" +
           "1 2 3\n" +
@@ -63,15 +68,17 @@ public class App {
           }
           System.out.println();
           matrix = new Matrix(rowCount, colCount, matrixBuild);
-          if(matrix.getDimensions()[0] == 0 || matrix.getDimensions()[1] == 0) {
-            System.out.println("You entered an invalid matrix. Try again!\nA 3x3 matrix filled with 0s will be created by default.\n");
+
+          if(matrix.getDimensions()[0] == 0) {
+            System.out.println();
+            throw new ArrayIndexOutOfBoundsException();
           }
         } catch(ArrayIndexOutOfBoundsException a) {
-            System.out.println("Incorrect format, try again!\nA 3x3 matrix filled with 0s will be created by default.\n\n");
+            System.out.println("Incorrect format, try again!\n\n");
         } catch(NullPointerException n) {
-          System.out.println("The values don't match the entered dimensions. Please try again!\nA 3x3 matrix filled with 0s will be created by default.\n\n");
+          System.out.println("The values don't match the entered dimensions. Please try again!\n\n");
         } catch(NumberFormatException f) {
-          System.out.println("You didn't enter enough numbers. Try again!\nA 3x3 matrix filled with 0s will be created by default.\n\n");
+          System.out.println("You didn't enter enough numbers. Try again!\n\n");
         }
         break;
       // if the option is to display this matrix
@@ -98,14 +105,8 @@ public class App {
           System.out.println("\nRow values are invalid! Try again\n");
         }
         break;
-      // if the option is to scale a row by a given factor
+      // if the option is to replace a row by itself and the sum of a scaled row
       case "r":
-
-
-
-
-
-
         System.out.print("\nReplace row, row to scale and add to replace row, scale factor?\n"+
         "[format (count starts at 1): m n o ... ex. 1 2 -.5]: ");
 
@@ -126,14 +127,7 @@ public class App {
           System.out.println("\nNot enough values! Try again\n");
         }
         break;
-
-
-
-
-
-
-
-
+      // if the option is to scale a row by a given factor
       case "s":
         System.out.print("\nRow you would like to scale and by what factor?\n"+
         "[format: m n ... ex. 1 -2]: ");

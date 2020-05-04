@@ -90,8 +90,6 @@ public class Matrix {
     return false;
   }
 
-
-
   public boolean replace(int rowToReplace, int rowToAdd, int scaleFactor) {
     if(validateMatrix(rowCount, colCount, matrix)) {
       ArrayList<Integer> replaceRow = matrix.get(rowToReplace-1);
@@ -109,10 +107,6 @@ public class Matrix {
     }
     return false;
   }
-
-
-
-
 
   @Override
   public String toString() {
