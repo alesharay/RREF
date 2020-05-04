@@ -34,12 +34,14 @@ public class Matrix {
 
   public Matrix() {
     defaultMatrixBuilder();
+    System.out.println("\n\n"+toString()+"\n\n");
   }
   
   public Matrix(int rowCount, int colCount, ArrayList<ArrayList<Integer>> matrix) {
     if(!updateMatrix(rowCount, colCount, matrix)) {
       defaultMatrixBuilder();
     }
+    System.out.println("\n\n"+toString()+"\n\n");
   }
 
   public void setDimensions(int rowCount, int colCount) {
@@ -67,6 +69,7 @@ public class Matrix {
       ArrayList<Integer> swapRow = matrix.get(--row2);
       matrix.set(row1, swapRow);
       matrix.set(row2, originalRow);
+      System.out.println("\n\n"+toString()+"\n\n");
       return true;
     }
     return false;
@@ -81,10 +84,35 @@ public class Matrix {
                                                        .collect(Collectors.toList())
                                             )
                 );
+      System.out.println("\n\n"+toString()+"\n\n");
       return true;
     }
     return false;
   }
+
+
+
+  public boolean replace(int rowToReplace, int rowToAdd, int scaleFactor) {
+    if(validateMatrix(rowCount, colCount, matrix)) {
+      ArrayList<Integer> replaceRow = matrix.get(rowToReplace-1);
+      ArrayList<Integer> addRow = matrix.get(rowToAdd-1);
+      scale(rowToAdd, scaleFactor);
+      ArrayList<Integer> scaledAddRow = matrix.get(rowToAdd-1);
+      ArrayList<Integer> summedReplaceRow = new ArrayList<Integer>();
+      for(int i = 0; i < replaceRow.size(); i++) {
+        summedReplaceRow.add(replaceRow.get(i) + scaledAddRow.get(i));
+      }
+      matrix.set(rowToReplace-1, summedReplaceRow);
+      matrix.set(rowToAdd-1, addRow);
+      System.out.println("\n\n"+toString()+"\n\n");
+      return true;
+    }
+    return false;
+  }
+
+
+
+
 
   @Override
   public String toString() {

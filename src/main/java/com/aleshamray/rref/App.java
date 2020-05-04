@@ -19,6 +19,7 @@ public class App {
         "Create a new matrix (c)\n" + 
         "Display the matrix (d)\n" +
         "Interchange (swap) two rows (i)\n" + 
+        "Replace one row with the sum of itself and a scaled row (r)\n" +
         "Scale (multiply) a row by a given value (s)\n" +
         "Quit (q)\n\n" + 
         "OPTION: "
@@ -37,7 +38,7 @@ public class App {
       case "c":
         matrixBuild = new ArrayList< ArrayList<Integer> >();
         System.out.print("number of rows (n) and columns (m)\n"+
-                           "[format: n m ... ex. 3 4]: ");
+                           "[format: m n ... ex. 3 4]: ");
         
         int rowCount, colCount;
         String[] nums;
@@ -80,7 +81,7 @@ public class App {
       // if the option is to interchange two rows in the matrix
       case "i":
         System.out.print("\nWhich rows to swap\n"+
-        "[format (count starts at 1): n m ... ex. 3 4]: ");
+        "[format (count starts at 1): m n ... ex. 3 4]: ");
 
         int row1, row2;
         try {
@@ -89,7 +90,7 @@ public class App {
           row2 = Integer.valueOf(nums[1]);
 
           if(matrix.interchange(row1, row2)) {
-            System.out.println("\nSuccessful! Display to view inter.\n");
+            System.out.println("\nSuccessful! Display to view interchange.\n");
           } else {
             System.out.println("\nUnsuccessful, matrix is not valid. Try to rebuild!\n");
           }
@@ -98,9 +99,44 @@ public class App {
         }
         break;
       // if the option is to scale a row by a given factor
+      case "r":
+
+
+
+
+
+
+        System.out.print("\nReplace row, row to scale and add to replace row, scale factor?\n"+
+        "[format (count starts at 1): m n o ... ex. 1 2 -.5]: ");
+
+        try {
+          nums = reader.readLine().trim().split(" ");
+          int rowToReplace = Integer.valueOf(nums[0]);
+          int rowToScaleAndAdd = Integer.valueOf(nums[1]);
+          int scaleFactor = Integer.valueOf(nums[2]);
+
+          System.out.printf("rowToReplace: %d\nrowToScaleAndAdd: %d\nScaleFactor: %d\n", rowToReplace, rowToScaleAndAdd, scaleFactor);
+
+          if(matrix.replace(rowToReplace, rowToScaleAndAdd, scaleFactor)) {
+            System.out.println("\nSuccessful! Display to view replace.\n");
+          } else {
+            System.out.println("\nUnsuccessful, matrix is not valid. Try to rebuild!\n");
+          }
+        } catch (IndexOutOfBoundsException i) {
+          System.out.println("\nNot enough values! Try again\n");
+        }
+        break;
+
+
+
+
+
+
+
+
       case "s":
         System.out.print("\nRow you would like to scale and by what factor?\n"+
-        "[format: n m ... ex. 1 -2]: ");
+        "[format: m n ... ex. 1 -2]: ");
         try { 
           nums = reader.readLine().trim().split(" ");
           int rowToScale = Integer.valueOf(nums[0]);
