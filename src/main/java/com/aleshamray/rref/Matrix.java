@@ -1,7 +1,7 @@
 package com.aleshamray.rref;
 
-import java.util.ArrayList;
-import java.util.stream.*;
+import java.util.*;
+
 
 public class Matrix {
   private ArrayList< ArrayList<Integer> > matrix;
@@ -32,6 +32,48 @@ public class Matrix {
     return false;
   }
 
+  private boolean isZeroRow(ArrayList<Integer> row) {
+    for (Integer num : row) {
+      if (num != 0) { 
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public boolean moveZeroRowsToEnd() {
+    boolean swapMade = false;
+    boolean rowIsZero;
+
+    for(int i = rowCount-1; i >= 0; i--) {
+      rowIsZero = true;
+      ArrayList<Integer> row = matrix.get(i);
+
+      if(isZeroRow(row)) {
+        matrix.add(row);
+        matrix.remove(i);
+        swapMade = true;
+      }
+    }
+
+    return swapMade;
+  }
+
+  public void findLeadingEntries() {
+    Map<Integer, Integer> leadingEntries = new HashMap<Integer, Integer>();
+
+    for( int i = 0; i < rowCount; i++ ) {
+      for( int j = 0; j < colCount; j++ ) {
+        if( getEntry(i, j) != 0 ) {
+          leadingEntries.put(i, j);
+          break;
+        }
+      }
+    
+      
+    }
+  }
+
   public Matrix() {
     defaultMatrixBuilder();
     System.out.println("\n\n"+toString()+"\n\n");
@@ -54,6 +96,10 @@ public class Matrix {
   }
 
   public int[] getDimensions() { return new int[]{rowCount, colCount}; }
+
+  public int getEntry(int row, int col) {
+    return matrix.get(row-1).get(col-1);
+  }
 
   public boolean validateMatrix(int rowCount, int colCount, ArrayList<ArrayList<Integer>> matrix) {
     if(matrix.size() != rowCount ) return false; 
@@ -106,6 +152,23 @@ public class Matrix {
       return true;
     }
     return false;
+  }
+
+  public Matrix REF() {
+    boolean changesMade = true;
+
+    while( changesMade ) {
+      changesMade = false;
+    
+    }
+
+    return new Matrix();
+  }
+
+  public Matrix RREF() {
+    // IMPLEMENT THIS
+    moveZeroRowsToEnd();
+    return new Matrix();
   }
 
   @Override
